@@ -124,10 +124,33 @@ public class CreateAccount extends JFrame {
         pwd.setBounds(79, 327, 237, 32);
         panel_1_1_1.add(pwd);
 
-        JButton btnLogin = new JButton("Create");
-        btnLogin.setFont(new Font("FreeMono", Font.BOLD, 20));
-        btnLogin.setBounds(84, 381, 106, 32);
-        panel_1_1_1.add(btnLogin);
+        JButton btnCreate = new JButton("Create");
+        btnCreate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(e.getSource()==btnCreate) {
+        			ConnectDB db = new ConnectDB();
+        			db.dbConnection();
+        			
+        			String fullname=txtName.getText();
+        			String role=txtRole.getText();
+        			String user=txtUser.getText();
+        			String password=pwd.getText();
+        			
+        			try {
+						db.addUser(fullname, role, user, password);
+						
+					} catch (Exception e1) {
+				
+						e1.printStackTrace();
+					}
+        			
+        		}
+        		
+        	}
+        });
+        btnCreate.setFont(new Font("FreeMono", Font.BOLD, 20));
+        btnCreate.setBounds(84, 381, 106, 32);
+        panel_1_1_1.add(btnCreate);
 
         JButton btnClear = new JButton("Clear");
         btnClear.setFont(new Font("FreeMono", Font.BOLD, 20));

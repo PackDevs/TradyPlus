@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -17,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Home extends JFrame {
@@ -156,23 +160,19 @@ public class Home extends JFrame {
         // ActionListener for the Login button
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String username = txtUser.getText();
+
+                String user = txtUser.getText();
                 String password = new String(pwd.getPassword());
 
-                if (username.equals("admin") && password.equals("password")) {
-                	
-                	  dispose(); // Close the current frame
-                      Landing landingFrame = new Landing();
-                      landingFrame.setVisible(true);
-                    System.out.println("Login successful");
-                } else {
+                     ConnectDB db = new ConnectDB();
+                     db.dbConnection();              
+                     db.getUser(user, password);
+           
                
-                    System.out.println("Invalid login");
-                }
             }
         });
 
-        // ActionListener for the Create Account button
+     
         btnCreateAccount.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                
