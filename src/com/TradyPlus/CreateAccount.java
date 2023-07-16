@@ -24,7 +24,6 @@ public class CreateAccount extends JFrame {
     private JPanel contentPane;
     private JTextField txtUser;
     private JPasswordField pwd;
-    private JTextField txtRole;
     private JTextField txtName;
 
     public static void main(String[] args) {
@@ -107,21 +106,21 @@ public class CreateAccount extends JFrame {
 
         JLabel lblEmailOrUsername = new JLabel("Email or Username");
         lblEmailOrUsername.setFont(new Font("FreeMono", Font.BOLD, 20));
-        lblEmailOrUsername.setBounds(78, 205, 216, 27);
+        lblEmailOrUsername.setBounds(78, 122, 216, 27);
         panel_1_1_1.add(lblEmailOrUsername);
 
         txtUser = new JTextField();
-        txtUser.setBounds(79, 244, 237, 32);
+        txtUser.setBounds(79, 161, 237, 32);
         panel_1_1_1.add(txtUser);
         txtUser.setColumns(10);
 
         JLabel lblPassword = new JLabel("Password");
         lblPassword.setFont(new Font("FreeMono", Font.BOLD, 20));
-        lblPassword.setBounds(77, 288, 160, 27);
+        lblPassword.setBounds(77, 205, 160, 27);
         panel_1_1_1.add(lblPassword);
 
         pwd = new JPasswordField();
-        pwd.setBounds(79, 327, 237, 32);
+        pwd.setBounds(79, 244, 237, 32);
         panel_1_1_1.add(pwd);
 
         JButton btnCreate = new JButton("Create");
@@ -132,7 +131,7 @@ public class CreateAccount extends JFrame {
         			db.dbConnection();
         			
         			String fullname=txtName.getText();
-        			String role=txtRole.getText();
+        			String role="user";
         			String user=txtUser.getText();
         			String password=pwd.getText();
         			
@@ -149,32 +148,22 @@ public class CreateAccount extends JFrame {
         	}
         });
         btnCreate.setFont(new Font("FreeMono", Font.BOLD, 20));
-        btnCreate.setBounds(84, 381, 106, 32);
+        btnCreate.setBounds(78, 298, 106, 32);
         panel_1_1_1.add(btnCreate);
 
         JButton btnClear = new JButton("Clear");
         btnClear.setFont(new Font("FreeMono", Font.BOLD, 20));
-        btnClear.setBounds(221, 381, 95, 32);
+        btnClear.setBounds(221, 298, 95, 32);
         panel_1_1_1.add(btnClear);
 
         JLabel lblNewLabel_2 = new JLabel("Already User");
         lblNewLabel_2.setFont(new Font("FreeMono", Font.BOLD, 20));
-        lblNewLabel_2.setBounds(46, 423, 144, 27);
+        lblNewLabel_2.setBounds(46, 340, 144, 27);
         panel_1_1_1.add(lblNewLabel_2);
 
         JButton btnCreateAccount = new JButton("Login");
-        btnCreateAccount.setBounds(221, 425, 95, 25);
+        btnCreateAccount.setBounds(221, 342, 95, 25);
         panel_1_1_1.add(btnCreateAccount);
-        
-        JLabel lblEmailOrUsername_1 = new JLabel("Role");
-        lblEmailOrUsername_1.setFont(new Font("FreeMono", Font.BOLD, 20));
-        lblEmailOrUsername_1.setBounds(78, 122, 216, 27);
-        panel_1_1_1.add(lblEmailOrUsername_1);
-        
-        txtRole = new JTextField();
-        txtRole.setColumns(10);
-        txtRole.setBounds(79, 161, 237, 32);
-        panel_1_1_1.add(txtRole);
         
         JLabel lblEmailOrUsername_1_1 = new JLabel("Full Name");
         lblEmailOrUsername_1_1.setFont(new Font("FreeMono", Font.BOLD, 20));

@@ -3,8 +3,7 @@ package com.TradyPlus;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
 public class ConnectDB {
@@ -57,11 +56,22 @@ public class ConnectDB {
         try {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, user);
+           
             st.setString(2, encryptedPassword);
             row = st.executeQuery();
             if (row.next()) {
+            	String role=row.getString("role");
+//            	String Names=row.getString("FullName");          	
+            	
+//            	System.out.println(role);
+//            	System.out.println(Names);
+            	if(role.equals("user")){
                 Landing landingPage=new Landing();
-                landingPage.setVisible(true);          
+                landingPage.setVisible(true); 
+            	}else {
+            		AdminDashboard ad=new AdminDashboard();
+            		ad.setVisible(true);
+            	}
                 }
             else {
             	JOptionPane.showMessageDialog(null, "Incorrect Email or Password");
@@ -86,5 +96,64 @@ public class ConnectDB {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public void addProduct(String productid, String productname, String quantity, String quality,String price) {
+        if (productid.length() > 0 && productname.length() > 0 && quantity.length() > 0 && quality.length() > 0 && price.length() > 0) {
+            
+                String sql = "INSERT INTO Producs(ProductID, ProductName, 	Quantity, Quality,Price) VALUES(?, ?, ?, ?,?)";
+                try {
+                    PreparedStatement st = con.prepareStatement(sql);
+                    st.setString(1, productid);
+                    st.setString(2, productname);
+                    st.setString(3, quantity);
+                    st.setString(4, quality);
+                    st.setString(5, price);
+                    int row = st.executeUpdate();
+                    if (row > 0) {
+                        JOptionPane.showMessageDialog(null, "Product Added");
+                        Products products = new Products();
+                        products.setVisible(true);
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+     
+        } else {
+            JOptionPane.showMessageDialog(null, "Please fill in all fields");
+        }
+    }
+    
+    public ResultSet getProducts() {
+        ResultSet rs = null;
+        try {
+            if (con != null) {
+                String query = "SELECT * FROM Producs";
+                Statement stmt = con.createStatement();
+                rs = stmt.executeQuery(query);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+    
+    public void deleteProduct(String productid) {
+    	
+    	try {
+    		if(con!=null) {
+    			String sql="DELETE * FROM Producs WHERE Productid=?";
+    			PreparedStatement dst=con.prepareStatement(sql);
+    			dst.setString(1, productid);
+    			dst.executeUpdate();
+    			dst.close();
+    			
+    			
+    			}
+    	}catch(SQLException e) {
+    		e.printStackTrace();    	}
+    	
+    	
+    	
     }
 }
