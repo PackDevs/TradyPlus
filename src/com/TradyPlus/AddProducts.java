@@ -36,6 +36,14 @@ public class AddProducts extends JFrame {
 	private JTextField txtQuantity;
 	private JTextField txtQuality;
 	private JTextField txtPrice;
+	
+	
+	
+	  private JTextField textFieldProductId;
+	    private JTextField textFieldProductName;
+	    private JTextField textFieldQuantity;
+	    private JTextField textFieldQuality;
+	    private JTextField textFieldPrice;
 
 	/**
 	 * Launch the application.
@@ -284,4 +292,6 @@ public class AddProducts extends JFrame {
 			
 		
 	}
+
+
 }

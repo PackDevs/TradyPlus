@@ -8,7 +8,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -24,14 +23,27 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Products extends JFrame {
+public class UpdateProducts extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
+	private JTextField txtProductid;
+	private JTextField txtProductname;
+	private JTextField txtQuantity;
+	private JTextField txtQuality;
+	private JTextField txtPrice;
+	
+	
+	
+	  private JTextField textFieldProductId;
+	    private JTextField textFieldProductName;
+	    private JTextField textFieldQuantity;
+	    private JTextField textFieldQuality;
+	    private JTextField textFieldPrice;
 
 	/**
 	 * Launch the application.
@@ -40,7 +52,7 @@ public class Products extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Products frame = new Products();
+					UpdateProducts frame = new UpdateProducts();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +64,7 @@ public class Products extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Products() {
+	public UpdateProducts() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1400, 800);
 		contentPane = new JPanel();
@@ -132,11 +144,10 @@ public class Products extends JFrame {
 		lblProduvts.setVerticalAlignment(SwingConstants.TOP);
 		lblProduvts.setHorizontalAlignment(SwingConstants.LEFT);
 		lblProduvts.setBounds(47, 102, 141, 31);
-		
 		lblProduvts.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) 
 			{
-				Products adm=new Products();
+				UpdateProducts adm=new UpdateProducts();
 				adm.setVisible(true);
 			}
 		});
@@ -190,121 +201,137 @@ public class Products extends JFrame {
 		lblLogout.setBounds(47, 398, 141, 31);
 		panel_2.add(lblLogout);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		panel_3.setBounds(493, 180, 666, 409);
-		panel.add(panel_3);
-		panel_3.setLayout(null);
+		JLabel lblProductid = new JLabel("ProductID");
+		lblProductid.setFont(new Font("FreeMono", Font.BOLD, 23));
+		lblProductid.setBounds(307, 192, 158, 47);
+		panel.add(lblProductid);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 666, 409);
-		panel_3.add(scrollPane);
+		JLabel lblProductName = new JLabel("Product Name");
+		lblProductName.setFont(new Font("FreeMono", Font.BOLD, 23));
+		lblProductName.setBounds(307, 251, 178, 47);
+		panel.add(lblProductName);
 		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ProductId", "Product Name", "Quantity", "Quality", "Price"
-			}
-		));
-		scrollPane.setViewportView(table);
+		JLabel lblQuantity = new JLabel("Quantity");
+		lblQuantity.setFont(new Font("FreeMono", Font.BOLD, 23));
+		lblQuantity.setBounds(307, 310, 158, 47);
+		panel.add(lblQuantity);
 		
-		JButton btnNewButton = new JButton("Add Product");
+		JLabel lblQuality = new JLabel("Quality");
+		lblQuality.setFont(new Font("FreeMono", Font.BOLD, 23));
+		lblQuality.setBounds(307, 369, 158, 47);
+		panel.add(lblQuality);
+		
+		JLabel lblPrice = new JLabel("Price");
+		lblPrice.setFont(new Font("FreeMono", Font.BOLD, 23));
+		lblPrice.setBounds(307, 428, 158, 47);
+		panel.add(lblPrice);
+		
+		setTxtProductid(new JTextField());
+		getTxtProductid().setBounds(494, 194, 272, 39);
+		panel.add(getTxtProductid());
+		getTxtProductid().setColumns(10);
+		
+		setTxtProductname(new JTextField());
+		getTxtProductname().setColumns(10);
+		getTxtProductname().setBounds(494, 251, 272, 39);
+		panel.add(getTxtProductname());
+		
+		setTxtQuantity(new JTextField());
+		getTxtQuantity().setColumns(10);
+		getTxtQuantity().setBounds(494, 312, 272, 39);
+		panel.add(getTxtQuantity());
+		
+		setTxtQuality(new JTextField());
+		getTxtQuality().setColumns(10);
+		getTxtQuality().setBounds(494, 374, 272, 39);
+		panel.add(getTxtQuality());
+		
+		setTxtPrice(new JTextField());
+		getTxtPrice().setColumns(10);
+		getTxtPrice().setBounds(494, 433, 272, 39);
+		panel.add(getTxtPrice());
+		
+		JButton btnNewButton = new JButton("Update");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddProducts ap=new AddProducts();
-				ap.setVisible(true);
-			}
-		});
-		btnNewButton.setBounds(493, 130, 132, 38);
-		panel.add(btnNewButton);
-		
-		JButton btnDelete = new JButton("Delete");
-		btnDelete.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        int selectedRow = table.getSelectedRow();
-		        if (selectedRow != -1) {
-		            String productId = table.getValueAt(selectedRow, 0).toString();
-		            ConnectDB db = new ConnectDB();
-		            db.dbConnection();
-		            db.deleteProduct(productId);
-		            ((DefaultTableModel) table.getModel()).removeRow(selectedRow);
-		        }
-		    }
-		});
-
-		btnDelete.setBounds(493, 615, 132, 38);
-		panel.add(btnDelete);
-		
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-		        ConnectDB db = new ConnectDB();
-	            db.dbConnection(); 
-	            int selectedRow = table.getSelectedRow();
-	            if (selectedRow != -1) {
-	            String productId=table.getValueAt(selectedRow, 0).toString();;
-				ResultSet rs = db.getProductById(productId);
-	            try {
-					while (rs.next()) {
-					    String ProductId = rs.getString("ProductId");
-					    String ProductName = rs.getString("ProductName");
-					    String Quantity = rs.getString("Quantity");
-					    String Quality = rs.getString("Quality");
-					    String Price = rs.getString("Price");
-					    dispose();
-					    UpdateProducts UpdatePro=new UpdateProducts();
-					    UpdatePro.setVisible(true);
-					    UpdatePro.getTxtProductname().setText(ProductName);
-					    UpdatePro.getTxtQuantity().setText(Quantity);
-					    UpdatePro.getTxtQuality().setText(Quality);
-					    UpdatePro.getTxtPrice().setText(Price);
-					    UpdatePro.getTxtProductid().setText(ProductId);
-
-					 
-					   
-					  
-					}
-				} catch (SQLException e1) {
+				ConnectDB db = new ConnectDB();
+                db.dbConnection();   
+                String ProductId=getTxtProductid().getText();
+                String ProductName=getTxtProductname().getText();
+                String Quantity=getTxtQuantity().getText();
+                String Quality=getTxtQuality().getText();
+                String price=getTxtPrice().getText();
+                
+                try {
+                	 db.updateProduct(ProductId, ProductName, Quantity, Quality, price);
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	            }
-		        
-		
-
-				
 			}
 		});
-		btnUpdate.setBounds(667, 615, 132, 38);
-		panel.add(btnUpdate);
-	    DefaultTableModel model = (DefaultTableModel) table.getModel();
-	    
-        try {
-            ConnectDB db = new ConnectDB();
-            db.dbConnection(); 
-   
-            ResultSet rs = db.getProducts();
-            while (rs.next()) {
-                String ProductId = rs.getString("ProductId");
-                String ProductName = rs.getString("ProductName");
-                String Quantity = rs.getString("Quantity");
-                String Quality = rs.getString("Quality");
-                String Price = rs.getString("Price");
-             
-                model.addRow(new Object[]{ProductId, ProductName, Quantity, Quality,Price});
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
-			
+		btnNewButton.setFont(new Font("FreeMono", Font.BOLD, 20));
+		btnNewButton.setBounds(494, 500, 117, 39);
+		panel.add(btnNewButton);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getTxtProductname().setText("");
+				getTxtProductid().setText("");
+				getTxtQuantity().setText("");
+				getTxtQuality().setText("");
+				getTxtPrice().setText("");
+			}
+		});
+		btnClear.setFont(new Font("FreeMono", Font.BOLD, 20));
+		btnClear.setBounds(649, 500, 117, 39);
+		panel.add(btnClear);
+       
 			
 			
 		
 	}
-	
+
+	public JTextField getTxtProductname() {
+		return txtProductname;
+	}
+
+	public void setTxtProductname(JTextField txtProductname) {
+		this.txtProductname = txtProductname;
+	}
+
+	public JTextField getTxtQuantity() {
+		return txtQuantity;
+	}
+
+	public void setTxtQuantity(JTextField txtQuantity) {
+		this.txtQuantity = txtQuantity;
+	}
+
+	public JTextField getTxtQuality() {
+		return txtQuality;
+	}
+
+	public void setTxtQuality(JTextField txtQuality) {
+		this.txtQuality = txtQuality;
+	}
+
+	public JTextField getTxtPrice() {
+		return txtPrice;
+	}
+
+	public void setTxtPrice(JTextField txtPrice) {
+		this.txtPrice = txtPrice;
+	}
+
+	public JTextField getTxtProductid() {
+		return txtProductid;
+	}
+
+	public void setTxtProductid(JTextField txtProductid) {
+		this.txtProductid = txtProductid;
+	}
+
 
 }

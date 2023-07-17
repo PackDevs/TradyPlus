@@ -57,7 +57,7 @@ public class AdminDashboard extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(0, 0, 0)));
-		panel.setBounds(0, 0, 1400, 800);
+		panel.setBounds(-39, 0, 1400, 800);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -139,6 +139,7 @@ public class AdminDashboard extends JFrame {
 		lblOrders.setVerticalAlignment(SwingConstants.TOP);
 		lblOrders.setHorizontalAlignment(SwingConstants.LEFT);
 		lblOrders.setBounds(47, 149, 141, 31);
+	
 		panel_2.add(lblOrders);
 		
 		JLabel lblCustomers = new JLabel(" Customers");
@@ -147,6 +148,7 @@ public class AdminDashboard extends JFrame {
 		lblCustomers.setVerticalAlignment(SwingConstants.TOP);
 		lblCustomers.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCustomers.setBounds(47, 195, 141, 31);
+		
 		panel_2.add(lblCustomers);
 		
 		JLabel lblStaff = new JLabel(" Staff");
@@ -155,6 +157,7 @@ public class AdminDashboard extends JFrame {
 		lblStaff.setVerticalAlignment(SwingConstants.TOP);
 		lblStaff.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStaff.setBounds(47, 244, 141, 31);
+
 		panel_2.add(lblStaff);
 		
 		JLabel lblReports = new JLabel(" Reports");
@@ -162,7 +165,9 @@ public class AdminDashboard extends JFrame {
 		lblReports.setFont(new Font("FreeMono", Font.BOLD, 18));
 		lblReports.setVerticalAlignment(SwingConstants.TOP);
 		lblReports.setHorizontalAlignment(SwingConstants.LEFT);
+	
 		lblReports.setBounds(47, 294, 141, 31);
+		
 		panel_2.add(lblReports);
 		
 		JLabel lblSettings = new JLabel(" Settings");
@@ -171,6 +176,8 @@ public class AdminDashboard extends JFrame {
 		lblSettings.setVerticalAlignment(SwingConstants.TOP);
 		lblSettings.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSettings.setBounds(47, 347, 141, 31);
+
+		
 		panel_2.add(lblSettings);
 		
 		JLabel lblLogout = new JLabel(" Logout");
@@ -182,10 +189,17 @@ public class AdminDashboard extends JFrame {
 		lblLogout.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) 
 			{
+				dispose();
 				Home hm=new Home();
 				hm.setVisible(true);
 			}
 		});
 		panel_2.add(lblLogout);
+		
+		JLabel lblDashboardIsComming = new JLabel("Dashboard is comming soon");
+		lblDashboardIsComming.setFont(new Font("FreeMono", Font.BOLD, 20));
+		lblDashboardIsComming.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDashboardIsComming.setBounds(581, 372, 377, 57);
+		panel.add(lblDashboardIsComming);
 	}
 }

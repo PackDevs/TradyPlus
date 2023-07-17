@@ -138,13 +138,13 @@ public class ConnectDB {
         return rs;
     }
     
-    public void deleteProduct(String productid) {
+    public void deleteProduct(String productId) {
     	
     	try {
     		if(con!=null) {
-    			String sql="DELETE * FROM Producs WHERE Productid=?";
+    			String sql="DELETE FROM Producs WHERE ProductID=?";
     			PreparedStatement dst=con.prepareStatement(sql);
-    			dst.setString(1, productid);
+    			dst.setString(1, productId);
     			dst.executeUpdate();
     			dst.close();
     			
@@ -152,8 +152,54 @@ public class ConnectDB {
     			}
     	}catch(SQLException e) {
     		e.printStackTrace();    	}
-    	
-    	
+	
+    }
+    
+    public void updateProduct(String productId, String newName, String newQuantity, String newQuality, String newPrice) {
+    	 try {
+    	        if (con != null) {
+    	            String sql = "UPDATE Producs SET ProductName=?, Quantity=?, Quality=?, Price=? WHERE ProductID=?";
+    	            PreparedStatement pst = con.prepareStatement(sql);
+    	            pst.setString(1, newName);
+    	            pst.setString(2, newQuantity);
+    	            pst.setString(3, newQuality);
+    	            pst.setString(4, newPrice);
+    	            pst.setString(5, productId);
+    	            pst.executeUpdate();
+    	            dispose();
+    	            Products pro=new Products();
+    	            pro.setVisible(true);
+    	            
+    	        }
+    	    } catch (SQLException e) {
+    	        e.printStackTrace();
+    	    }
     	
     }
+
+	private void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ResultSet getProductById(String productId) {
+		ResultSet row=null;
+		try {
+	        if (con != null) {
+	            String sql = "SELECT * FROM Producs WHERE ProductID=?";
+	            PreparedStatement pst = con.prepareStatement(sql);
+	            pst.setString(1, productId);
+	            row= pst.executeQuery();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+		return row;
+	}
+    
+    
+    
+    
+    
+    
 }
